@@ -7,7 +7,7 @@
 
 /*Scroll bar Styling*/
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -281,11 +281,6 @@ body {
 
 /*Main Container styling*/
 .root-container > .right-container > .main-container {
-   /* display: flex;
-    flex-direction: column;
-    gap: 50px;*/
-    /*min-height: 748px;*/
-    /*height: calc(100% - 50px);*/
     width: 99.5%;
     min-height: calc(100% - 50px);
     top: 50px;

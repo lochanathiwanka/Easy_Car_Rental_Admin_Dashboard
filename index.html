@@ -22,14 +22,14 @@
             <nav class="navbar-nav">
                 <div class="btn-home">
                     <div id="line-btnHome"></div>
-                    <button id="btnHome" onclick="btnHomeOnClick()">
+                    <button id="btnHome">
                         <i class="fas fa-home"></i>
                         <span id="btnHome-title">Home</span>
                     </button>
                 </div>
                 <div class="btn-vehicles">
                     <div id="line-btnVehicles"></div>
-                    <button id="btnVehicles" onclick="btnVehiclesOnClick()">
+                    <button id="btnVehicles">
                         <i class="fas fa-car-side"></i>
                         <span>Vehicles</span>
                     </button>
@@ -93,157 +93,7 @@
             <button class="sign-out"><i class="icon-sign-out fas fa-sign-out-alt"></i></button>
         </section>
         <section class="main-container" id="main-container">
-            <div class="vehicle-content-container" id="vehicle-content-container">
-                <div class="header"></div>
-                <form class="vehicle-form row g-3">
-                    <div class="col-md-12">
-                        <label for="validationDefault04" class="form-label">Select a Vehicle Brand</label>
-                        <select class="form-select" id="validationDefault04" required>
-                            <option selected disabled value="">Choose...</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="txtVid" class="form-label">VID</label>
-                        <input type="text" class="form-control" id="txtVid" value="V001" required aria-label="disabled vid" disabled readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="txtBrand" class="form-label">Brand</label>
-                        <input type="text" class="form-control" id="txtBrand" required>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="txtType" class="form-label">Type</label>
-                        <input type="text" class="form-control" id="txtType" required>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="txtFuelType" class="form-label">Fuel Type</label>
-                        <input type="text" class="form-control" id="txtFuelType" required>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="txtTransmissionType" class="form-label">Transmission Type</label>
-                        <input type="text" class="form-control" id="txtTransmissionType" required>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="txtNoOfPassenger" class="form-label">No.of Passenger</label>
-                        <input type="text" class="form-control" id="txtNoOfPassenger" required>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="txtDailyRate" class="form-label">Daily Rate</label>
-                        <input type="text" class="form-control" id="txtDailyRate" required>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="txtMonthlyRate" class="form-label">Monthly Rate</label>
-                        <input type="text" class="form-control" id="txtMonthlyRate" required>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="txtMileage" class="form-label">Mileage</label>
-                        <input type="text" class="form-control" id="txtMileage" required>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="txtFreeMileage" class="form-label">Free Mileage</label>
-                        <input type="text" class="form-control" id="txtFreeMileage" required>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="txtExtraKMPrice" class="form-label">Extra KM Price</label>
-                        <input type="text" class="form-control" id="txtExtraKMPrice" required>
-                    </div>
-                    <hr>
-                    <div class="col-md-2">
-                        <label for="txtRegNumber" class="form-label">Reg. Number</label>
-                        <input type="text" class="form-control" id="txtRegNumber" required>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="txtColor" class="form-label">Color</label>
-                        <select class="form-select" id="txtColor" required>
-                            <option selected disabled value="">Choose...</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="vehicle_image_1" class="form-label">Image 1</label>
-                        <input class="form-control" type="file" id="vehicle_image_1" required>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="vehicle_image_2" class="form-label">Image 2</label>
-                        <input class="form-control" type="file" id="vehicle_image_2" required>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="vehicle_image_3" class="form-label">Image 3</label>
-                        <input class="form-control" type="file" id="vehicle_image_3" required>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="vehicle_image_4" class="form-label">Image 4</label>
-                        <input class="form-control" type="file" id="vehicle_image_4" required>
-                    </div>
-                    <div class="col-auto">
-                        <button class="btn btn-primary" id="btnAddVehicle" type="submit">Add</button>
-                    </div>
-                    <div class="col-auto">
-                        <button class="btn btn-success" id="btnDeleteVehicle" type="button">Delete</button>
-                    </div>
-                    <div class="col-auto">
-                        <button class="btn btn-warning" id="btnUpdateVehicle" type="button">Update</button>
-                    </div>
-                </form>
-                <div class="vehicle-table-container">
-                    <table class="vehicle-table table table-striped table-hover">
-                        <thead>
-                        <tr>
-                            <th >VID</th>
-                            <th >VDID</th>
-                            <th >Brand</th>
-                            <th >Type</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>V001</td>
-                            <td>VD001</td>
-                            <td>BMW I8</td>
-                            <td>Auto</td>
-                        </tr>
-                        <tr>
-                            <td>V001</td>
-                            <td>VD001</td>
-                            <td>BMW I8</td>
-                            <td>Auto</td>
-                        </tr>
-                        <tr>
-                            <td>V001</td>
-                            <td>VD001</td>
-                            <td>BMW I8</td>
-                            <td>Auto</td>
-                        </tr>
-                        <tr>
-                            <td>V001</td>
-                            <td>VD001</td>
-                            <td>BMW I8</td>
-                            <td>Auto</td>
-                        </tr>
-                        <tr>
-                            <td>V001</td>
-                            <td>VD001</td>
-                            <td>BMW I8</td>
-                            <td>Auto</td>
-                        </tr>
-                        <tr>
-                            <td>V001</td>
-                            <td>VD001</td>
-                            <td>BMW I8</td>
-                            <td>Auto</td>
-                        </tr>
-                        <tr>
-                            <td>V001</td>
-                            <td>VD001</td>
-                            <td>BMW I8</td>
-                            <td>Auto</td>
-                        </tr>
 
-                        </tbody>
-                    </table>
-                </div>
-                <div class="footer"></div>
-            </div>
         </section>
     </section>
 </section>
