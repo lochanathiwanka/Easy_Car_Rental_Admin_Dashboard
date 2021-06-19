@@ -1,7 +1,18 @@
 <div class="vehicle-content-container" id="vehicle-content-container">
     <div class="header"></div>
     <form class="vehicle-form row g-3">
-        <div class="col-md-12">
+        <div class="col-md-6">
+            <label class="form-label" for="txtSearchVehicle">Search Vehicle</label>
+            <input class="form-control" id="txtSearchVehicle" list="datalistOptions" placeholder="Type to search...">
+            <datalist id="datalistOptions">
+                <option value="San Francisco">
+                <option value="New York">
+                <option value="Seattle">
+                <option value="Los Angeles">
+                <option value="Chicago">
+            </datalist>
+        </div>
+        <div class="col-md-6">
             <label class="form-label" for="validationDefault04">Select a Vehicle Brand</label>
             <select class="form-select" id="validationDefault04" required>
                 <option disabled selected value="">Choose...</option>
@@ -54,30 +65,34 @@
             <input class="form-control" id="txtExtraKMPrice" required type="text">
         </div>
         <hr>
-        <div class="col-md-2">
+        <div class="col-md-3">
+            <label class="form-label" for="txtRDID">RDID</label>
+            <input class="form-control" id="txtRDID" required type="text">
+        </div>
+        <div class="col-md-4">
             <label class="form-label" for="txtRegNumber">Reg. Number</label>
             <input class="form-control" id="txtRegNumber" required type="text">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-4">
             <label class="form-label" for="txtColor">Color</label>
             <select class="form-select" id="txtColor" required>
                 <option disabled selected value="">Choose...</option>
                 <option>...</option>
             </select>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <label class="form-label" for="vehicle_image_1">Image 1</label>
             <input class="form-control" id="vehicle_image_1" required type="file">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <label class="form-label" for="vehicle_image_2">Image 2</label>
             <input class="form-control" id="vehicle_image_2" required type="file">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <label class="form-label" for="vehicle_image_3">Image 3</label>
             <input class="form-control" id="vehicle_image_3" required type="file">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <label class="form-label" for="vehicle_image_4">Image 4</label>
             <input class="form-control" id="vehicle_image_4" required type="file">
         </div>

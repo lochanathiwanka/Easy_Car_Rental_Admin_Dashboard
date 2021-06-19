@@ -8,6 +8,7 @@
 /*Scroll bar Styling*/
 ::-webkit-scrollbar {
     width: 5px;
+    height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -52,6 +53,7 @@ body {
 .root-container > .right-container {
     display: flex;
     flex-direction: column;
+    gap: 5px;
     width: 80%;
     height: 100vh;
     overflow: auto;
@@ -182,7 +184,7 @@ body {
     position: relative;
     z-index: 5;
     width: 99.5%;
-    height: 50px;
+    height: 70px;
     background-color: #FBFBFB;
     left: 0;
     right: 0;
@@ -283,12 +285,15 @@ body {
 .root-container > .right-container > .main-container {
     width: 99.5%;
     min-height: calc(100% - 50px);
-    top: 50px;
+    /*top: 50px;*/
     left: 0;
     right: 0;
     margin-left: auto;
 }
 
+/*------------------------------------------------*/
+
+/*Vehicles view styling*/
 .root-container > .right-container > .main-container > .vehicle-content-container {
     width: 100%;
     /*height: 100%;*/
@@ -299,18 +304,21 @@ body {
     gap: 50px;
 }
 
-/*------------------------------------------------*/
-
-/*Vehicles view styling*/
 .vehicle-content-container > .header {
     position: relative;
     height: 5px;
+}
+
+#txtSearchVehicle {
+    border: 2px solid #18A558;
 }
 
 .vehicle-content-container > .vehicle-form {
     position: relative;
     font-family: 'Poppins', sans-serif;
     width: 95%;
+    height: 360px;
+    overflow: auto;
     left: 0;
     right: 0;
     margin: auto;
@@ -320,10 +328,10 @@ body {
     padding: 10px;
 }
 
-.vehicle-content-container > .vehicle-table-container  {
+.vehicle-content-container > .vehicle-table-container {
     position: relative;
     width: 95%;
-    height: 300px;
+    height: 250px;
     overflow: auto;
     left: 0;
     right: 0;
@@ -351,4 +359,81 @@ body {
     height: 5px;
 }
 
+/*------------------------------------------------*/
+
+/*Drivers view styling*/
+.root-container > .right-container > .main-container > .drivers-content-container {
+    width: 100%;
+    /*height: 100%;*/
+    /*min-height: 764px;*/
+    /*min-height: 100%;*/
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.drivers-content-container > .header {
+    position: relative;
+    height: 5px;
+}
+
+#txtSearchDriver {
+    border: 2px solid #18A558;
+}
+
+#nic_image {
+    border-radius: 5px;
+}
+
+#drlicense_image {
+    border-radius: 5px;
+}
+
+.drivers-content-container > .drivers-form {
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    width: 95%;
+    height: 360px;
+    overflow: auto;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: #F8F8F8;
+    box-shadow: 2px 3px 5px 3px #cccccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.drivers-content-container > .drivers-table-container {
+    position: relative;
+    width: 95%;
+    height: 250px;
+    overflow: auto;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: #F8F8F8;
+    box-shadow: 2px 3px 5px 3px #cccccc;
+    border-radius: 5px;
+}
+
+.drivers-content-container > .drivers-table-container > .drivers-table {
+    position: absolute;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.drivers-content-container > .drivers-table-container > .drivers-table tr th {
+    background-color: #dfdfdf;
+    position: sticky;
+    z-index: 100;
+    top: 0;
+}
+
+.drivers-content-container > .footer {
+    position: relative;
+    height: 5px;
+}
+
+/*------------------------------------------------*/
 

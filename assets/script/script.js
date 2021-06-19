@@ -55,7 +55,16 @@ $('#btnDrivers').click(function () {
     let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnCustomers', 'line-btnNotifications', 'line-btnBookings', 'line-btnSettings', 'line-btnAbout'];
     let button_list = ['btnHome', 'btnVehicles', 'btnCustomers', 'btnNotifications', 'btnBookings', 'btnSettings', 'btnAbout'];
     changeScreensStyles('Drivers', 'fas fa-users', 'line-btnDrivers', 'btnDrivers', list_items, button_list);
-    $('#main-container').html('<h1>Drivers Page</h1>');
+
+    $.ajax({
+        method: 'GET',
+        async: true,
+        url: './views/drivers.html',
+        contentType: 'text/html',
+        success: (data) => {
+            $('#main-container').html(data);
+        }
+    });
 });
 
 
