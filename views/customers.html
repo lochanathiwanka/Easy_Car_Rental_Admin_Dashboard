@@ -1,9 +1,9 @@
-<div class="drivers-content-container" id="drivers-content-container">
+<div class="customers-content-container" id="customers-content-container">
     <div class="header"></div>
-    <form class="drivers-form row g-3">
+    <form class="customers-form row g-3" id="customers-form">
         <div class="col-md-4">
-            <label class="form-label" for="txtSearchDriver">Search Driver</label>
-            <input class="form-control" id="txtSearchDriver" list="datalistOptions" placeholder="Type to search...">
+            <label class="form-label" for="txtSearchCustomer">Search Customer</label>
+            <input class="form-control" id="txtSearchCustomer" list="datalistOptions" placeholder="Type to search...">
             <datalist id="datalistOptions">
                 <option value="San Francisco">
                 <option value="New York">
@@ -18,47 +18,46 @@
                    value="U001">
         </div>
         <div class="col-md-4">
-            <label class="form-label" for="txtDID">DID</label>
-            <input aria-label="disabled did" class="form-control" disabled id="txtDID" readonly required type="text"
-                   value="D001">
+            <label class="form-label" for="txtCID">CID</label>
+            <input aria-label="disabled cid" class="form-control" id="txtCID" required type="text">
         </div>
         <div class="col-md-4">
-            <label class="form-label" for="txtDriverName">Name</label>
-            <input class="form-control" id="txtDriverName" required type="text">
+            <label class="form-label" for="txtCustomerName">Name</label>
+            <input class="form-control" id="txtCustomerName" required type="text">
         </div>
         <div class="col-md-5">
-            <label class="form-label" for="txtDriverAddress">Address</label>
-            <input class="form-control" id="txtDriverAddress" required type="text">
+            <label class="form-label" for="txtCustomerAddress">Address</label>
+            <input class="form-control" id="txtCustomerAddress" required type="text">
         </div>
         <div class="col-md-3">
-            <label class="form-label" for="txtDriverContact">Contact</label>
-            <input class="form-control" id="txtDriverContact" required type="text">
+            <label class="form-label" for="txtCustomerContact">Contact</label>
+            <input class="form-control" id="txtCustomerContact" required type="text">
         </div>
         <div class="col-md-6">
-            <label class="form-label" for="txtDriverNIC">NIC</label>
-            <input class="form-control" id="txtDriverNIC" required type="text">
+            <label class="form-label" for="txtCustomerNIC">NIC</label>
+            <input class="form-control" id="txtCustomerNIC" required type="text">
         </div>
         <div class="col-md-6">
-            <label class="form-label" for="txtDriverDRLicense">DR.License</label>
-            <input class="form-control" id="txtDriverDRLicense" required type="text">
+            <label class="form-label" for="txtCustomerDRLicense">DR.License</label>
+            <input class="form-control" id="txtCustomerDRLicense" required type="text">
         </div>
         <div class="col-md-6">
-            <img alt="nic_image" class="img-fluid" id="driver_nic_image"
+            <img alt="nic_image" class="img-fluid" id="customer_nic_image"
                  src="https://i.ibb.co/TMhn98r/lochanathiwanka.jpg">
         </div>
         <div class="col-md-6">
-            <img alt="dr.license_image" class="img-fluid" id="driver_drlicense_image"
+            <img alt="dr.license_image" class="img-fluid" id="customer_drlicense_image"
                  src="https://i.ibb.co/TMhn98r/lochanathiwanka.jpg">
         </div>
         <div class="col-auto">
-            <button class="btn btn-success" id="btnDeleteDriver" type="button">Delete</button>
+            <button class="btn btn-success" id="btnDeleteCustomer" type="button">Delete</button>
         </div>
         <div class="col-auto">
-            <button class="btn btn-warning" id="btnUpdateDriver" type="button">Update</button>
+            <button class="btn btn-warning" id="btnUpdateCustomer" type="button">Update</button>
         </div>
     </form>
-    <div class="drivers-table-container">
-        <table class="drivers-table table table-striped table-hover">
+    <div class="customers-table-container">
+        <table class="customers-table table table-striped table-hover">
             <thead>
             <tr>
                 <th>VID</th>

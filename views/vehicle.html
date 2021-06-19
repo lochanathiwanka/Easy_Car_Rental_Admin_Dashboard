@@ -1,6 +1,6 @@
 <div class="vehicle-content-container" id="vehicle-content-container">
     <div class="header"></div>
-    <form class="vehicle-form row g-3">
+    <form class="vehicle-form row g-3 needs-validation" novalidate>
         <div class="col-md-6">
             <label class="form-label" for="txtSearchVehicle">Search Vehicle</label>
             <input class="form-control" id="txtSearchVehicle" list="datalistOptions" placeholder="Type to search...">
@@ -21,16 +21,15 @@
         </div>
         <div class="col-md-3">
             <label class="form-label" for="txtVid">VID</label>
-            <input aria-label="disabled vid" class="form-control" disabled id="txtVid" readonly required type="text"
-                   value="V001">
+            <input aria-label="disabled vid" class="form-control" disabled id="txtVid" readonly required type="text">
         </div>
         <div class="col-md-6">
             <label class="form-label" for="txtBrand">Brand</label>
-            <input class="form-control" id="txtBrand" required type="text">
+            <input class="form-control" id="txtBrand" pattern="^[A-z - 0-9 ()]{1,}$" required type="text">
         </div>
         <div class="col-md-3">
             <label class="form-label" for="txtType">Type</label>
-            <input class="form-control" id="txtType" required type="text">
+            <input class="form-control" id="txtType" pattern="^[A-z]{1,}$" required type="text">
         </div>
         <div class="col-md-3">
             <label class="form-label" for="txtFuelType">Fuel Type</label>
@@ -66,8 +65,8 @@
         </div>
         <hr>
         <div class="col-md-3">
-            <label class="form-label" for="txtRDID">RDID</label>
-            <input class="form-control" id="txtRDID" required type="text">
+            <label class="form-label" for="txtVDID">VDID</label>
+            <input class="form-control" id="txtVDID" required type="text">
         </div>
         <div class="col-md-4">
             <label class="form-label" for="txtRegNumber">Reg. Number</label>
@@ -77,7 +76,10 @@
             <label class="form-label" for="txtColor">Color</label>
             <select class="form-select" id="txtColor" required>
                 <option disabled selected value="">Choose...</option>
-                <option>...</option>
+                <option>White</option>
+                <option>Black</option>
+                <option>Red</option>
+                <option>Blue</option>
             </select>
         </div>
         <div class="col-md-3">
@@ -96,8 +98,16 @@
             <label class="form-label" for="vehicle_image_4">Image 4</label>
             <input class="form-control" id="vehicle_image_4" required type="file">
         </div>
+        <div class="col-md-6">
+            <label class="form-label" for="txtAvailability">Availability</label>
+            <input class="form-control" id="txtAvailability" required type="text" value="Available">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label" for="txtMaintenance">Maintenance</label>
+            <input class="form-control" id="txtMaintenance" required type="text" value="No">
+        </div>
         <div class="col-auto">
-            <button class="btn btn-primary" id="btnAddVehicle" type="submit">Add</button>
+            <button class="btn btn-primary" id="btnAddVehicle" type="button">Add</button>
         </div>
         <div class="col-auto">
             <button class="btn btn-success" id="btnDeleteVehicle" type="button">Delete</button>
