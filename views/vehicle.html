@@ -1,23 +1,10 @@
 <div class="vehicle-content-container" id="vehicle-content-container">
     <div class="header"></div>
     <form class="vehicle-form row g-3 needs-validation" novalidate>
-        <div class="col-md-6">
-            <label class="form-label" for="txtSearchVehicle">Search Vehicle</label>
-            <input class="form-control" id="txtSearchVehicle" list="datalistOptions" placeholder="Type to search...">
-            <datalist id="datalistOptions">
-                <option value="San Francisco">
-                <option value="New York">
-                <option value="Seattle">
-                <option value="Los Angeles">
-                <option value="Chicago">
-            </datalist>
-        </div>
-        <div class="col-md-6">
-            <label class="form-label" for="validationDefault04">Select a Vehicle Brand</label>
-            <select class="form-select" id="validationDefault04" required>
-                <option disabled selected value="">Choose...</option>
-                <option>...</option>
-            </select>
+        <div class="col-md-12">
+            <label class="form-label" for="txtSearchVehicle">Search Vehicle Category</label>
+            <input class="form-control" id="txtSearchVehicle" list="vehicle-data-list" placeholder="Type to search...">
+            <datalist id="vehicle-data-list"></datalist>
         </div>
         <div class="col-md-3">
             <label class="form-label" for="txtVid">VID</label>
@@ -66,7 +53,7 @@
         <hr>
         <div class="col-md-3">
             <label class="form-label" for="txtVDID">VDID</label>
-            <input class="form-control" id="txtVDID" required type="text">
+            <input class="form-control" disabled id="txtVDID" readonly required type="text">
         </div>
         <div class="col-md-4">
             <label class="form-label" for="txtRegNumber">Reg. Number</label>
@@ -115,9 +102,12 @@
         <div class="col-auto">
             <button class="btn btn-warning" id="btnUpdateVehicle" type="button">Update</button>
         </div>
+        <div class="col-auto">
+            <button class="btn btn-danger" id="btnReset" type="button">Reset</button>
+        </div>
     </form>
     <div class="vehicle-table-container">
-        <table class="vehicle-table table table-striped table-hover">
+        <table class="vehicle-table table table-striped table-hover" id="vehicle-table">
             <thead>
             <tr>
                 <th>VID</th>
@@ -127,49 +117,6 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-
             </tbody>
         </table>
     </div>
