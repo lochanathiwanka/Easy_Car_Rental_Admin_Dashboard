@@ -1,28 +1,21 @@
 <div class="drivers-content-container" id="drivers-content-container">
     <div class="header"></div>
     <form class="drivers-form row g-3">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label class="form-label" for="txtSearchDriver">Search Driver</label>
-            <input class="form-control" id="txtSearchDriver" list="datalistOptions" placeholder="Type to search...">
-            <datalist id="datalistOptions">
-                <option value="San Francisco">
-                <option value="New York">
-                <option value="Seattle">
-                <option value="Los Angeles">
-                <option value="Chicago">
-            </datalist>
+            <input class="form-control" id="txtSearchDriver" list="drivers-data-list" placeholder="Type to search...">
+            <datalist id="drivers-data-list"></datalist>
         </div>
-        <div class="col-md-4">
-            <label class="form-label" for="txtUID">UID</label>
-            <input aria-label="disabled uid" class="form-control" disabled id="txtUID" readonly required type="text"
-                   value="U001">
+        <div class="col-md-3">
+            <label class="form-label" for="txtDriverUID">UID</label>
+            <input aria-label="disabled uid" class="form-control" disabled id="txtDriverUID" readonly required
+                   type="text">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label class="form-label" for="txtDID">DID</label>
-            <input aria-label="disabled did" class="form-control" disabled id="txtDID" readonly required type="text"
-                   value="D001">
+            <input aria-label="disabled did" class="form-control" disabled id="txtDID" readonly required type="text">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label class="form-label" for="txtDriverName">Name</label>
             <input class="form-control" id="txtDriverName" required type="text">
         </div>
@@ -34,6 +27,10 @@
             <label class="form-label" for="txtDriverContact">Contact</label>
             <input class="form-control" id="txtDriverContact" required type="text">
         </div>
+        <div class="col-md-3">
+            <label class="form-label" for="txtDriverAvailability">Availability</label>
+            <input class="form-control" id="txtDriverAvailability" required type="text">
+        </div>
         <div class="col-md-6">
             <label class="form-label" for="txtDriverNIC">NIC</label>
             <input class="form-control" id="txtDriverNIC" required type="text">
@@ -43,12 +40,10 @@
             <input class="form-control" id="txtDriverDRLicense" required type="text">
         </div>
         <div class="col-md-6">
-            <img alt="nic_image" class="img-fluid" id="driver_nic_image"
-                 src="https://i.ibb.co/TMhn98r/lochanathiwanka.jpg">
+            <img alt="nic_image" class="img-fluid" id="driver_nic_image" src="">
         </div>
         <div class="col-md-6">
-            <img alt="dr.license_image" class="img-fluid" id="driver_drlicense_image"
-                 src="https://i.ibb.co/TMhn98r/lochanathiwanka.jpg">
+            <img alt="dr.license_image" class="img-fluid" id="driver_drlicense_image" src="">
         </div>
         <div class="col-auto">
             <button class="btn btn-success" id="btnDeleteDriver" type="button">Delete</button>
@@ -58,59 +53,17 @@
         </div>
     </form>
     <div class="drivers-table-container">
-        <table class="drivers-table table table-striped table-hover">
+        <table class="drivers-table table table-striped table-hover" id="drivers-table">
             <thead>
             <tr>
-                <th>VID</th>
-                <th>VDID</th>
-                <th>Brand</th>
-                <th>Type</th>
+                <th>UID</th>
+                <th>DID</th>
+                <th>Name</th>
+                <th>NIC</th>
+                <th>Email</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-
             </tbody>
         </table>
     </div>

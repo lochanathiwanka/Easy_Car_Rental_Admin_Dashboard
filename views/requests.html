@@ -1,0 +1,101 @@
+<div class="request-content-container" id="request-content-container">
+    <div class="header"></div>
+    <div class="request-table-container">
+        <h3>Request</h3>
+        <table class="request-table table table-striped table-hover" id="request-table">
+            <thead>
+            <tr>
+                <th>RID</th>
+                <th>CID</th>
+                <th>Total Fee</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="request-detail-table-container">
+        <h3>Request Details</h3>
+        <table class="request-detail-table table table-striped table-hover" id="request-detail-table">
+            <thead>
+            <tr>
+                <th>RID</th>
+                <th>VID</th>
+                <th>Pickup Date</th>
+                <th>Return Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <form class="request-detail-form row g-3">
+        <div class="col-md-4">
+            <label class="form-label" for="txtRID">RID</label>
+            <input class="form-control" disabled id="txtRID" readonly required type="text">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label" for="txtReq-CID">CID</label>
+            <input class="form-control" disabled id="txtReq-CID" readonly required type="text">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label" for="txtReq-VID">VID</label>
+            <input class="form-control" disabled id="txtReq-VID" readonly required type="text">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label" for="txtReq-Brand">Brand</label>
+            <input class="form-control" disabled id="txtReq-Brand" readonly required type="text">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label" for="txtReq-QTY">QTY</label>
+            <input class="form-control" disabled id="txtReq-QTY" readonly required type="text">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label" for="txtReq-RentalFee">Rental Fee</label>
+            <input class="form-control" disabled id="txtReq-RentalFee" readonly required type="text">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label" for="txtReq-PickupDate">Pickup Date</label>
+            <input class="form-control" disabled id="txtReq-PickupDate" readonly required type="text">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label" for="txtReq-ReturnDate">Return Date</label>
+            <input class="form-control" disabled id="txtReq-ReturnDate" readonly required type="text">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label" for="txtReq-Driver">Driver</label>
+            <input class="form-control" disabled id="txtReq-Driver" readonly required type="text">
+        </div>
+        <div class="col-md-12">
+            <label class="form-label" for="txtReq-Message">Message</label>
+            <input class="form-control" disabled id="txtReq-Message" required type="text">
+        </div>
+    </form>
+    <form class="bank-slip-form row g-3">
+        <div class="col-md-6">
+            <img alt="bank_slip_image" class="img-fluid" id="bank_slip_image" src="">
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12 mb-3" id="req-search-driver-container">
+                <select aria-label="Default select example" class="form-select" disabled id="req-SearchDriver">
+                    <option selected>Select a driver</option>
+                </select>
+            </div>
+            <div class="col-md-12 mb-3" id="req-driver-name-container">
+                <label class="form-label" for="txtReq-DriverName">Driver Name</label>
+                <input class="form-control" disabled id="txtReq-DriverName" readonly required type="text">
+            </div>
+            <div class="col-md-6 mb-3">
+                <button class="btn btn-success" disabled id="btnReq-Confirm" type="button">Confirm</button>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-warning mb-3" disabled id="btnReq-AddToBooking" type="button">Add to Booking
+                </button>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-danger" disabled id="btnReq-Reject" type="button">Reject</button>
+            </div>
+        </div>
+    </form>
+    <div class="footer"></div>
+</div>

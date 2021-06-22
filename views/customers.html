@@ -3,23 +3,18 @@
     <form class="customers-form row g-3" id="customers-form">
         <div class="col-md-4">
             <label class="form-label" for="txtSearchCustomer">Search Customer</label>
-            <input class="form-control" id="txtSearchCustomer" list="datalistOptions" placeholder="Type to search...">
-            <datalist id="datalistOptions">
-                <option value="San Francisco">
-                <option value="New York">
-                <option value="Seattle">
-                <option value="Los Angeles">
-                <option value="Chicago">
-            </datalist>
+            <input class="form-control" id="txtSearchCustomer" list="customers-data-list"
+                   placeholder="Type to search...">
+            <datalist id="customers-data-list"></datalist>
         </div>
         <div class="col-md-4">
-            <label class="form-label" for="txtUID">UID</label>
-            <input aria-label="disabled uid" class="form-control" disabled id="txtUID" readonly required type="text"
-                   value="U001">
+            <label class="form-label" for="txtCustomerUID">UID</label>
+            <input aria-label="disabled uid" class="form-control" disabled id="txtCustomerUID" readonly required
+                   type="text">
         </div>
         <div class="col-md-4">
             <label class="form-label" for="txtCID">CID</label>
-            <input aria-label="disabled cid" class="form-control" id="txtCID" required type="text">
+            <input aria-label="disabled cid" class="form-control" disabled id="txtCID" readonly required type="text">
         </div>
         <div class="col-md-4">
             <label class="form-label" for="txtCustomerName">Name</label>
@@ -42,12 +37,10 @@
             <input class="form-control" id="txtCustomerDRLicense" required type="text">
         </div>
         <div class="col-md-6">
-            <img alt="nic_image" class="img-fluid" id="customer_nic_image"
-                 src="https://i.ibb.co/TMhn98r/lochanathiwanka.jpg">
+            <img alt="nic_image" class="img-fluid" id="customer_nic_image" src="">
         </div>
         <div class="col-md-6">
-            <img alt="dr.license_image" class="img-fluid" id="customer_drlicense_image"
-                 src="https://i.ibb.co/TMhn98r/lochanathiwanka.jpg">
+            <img alt="dr.license_image" class="img-fluid" id="customer_drlicense_image" src="">
         </div>
         <div class="col-auto">
             <button class="btn btn-success" id="btnDeleteCustomer" type="button">Delete</button>
@@ -57,59 +50,17 @@
         </div>
     </form>
     <div class="customers-table-container">
-        <table class="customers-table table table-striped table-hover">
+        <table class="customers-table table table-striped table-hover" id="customers-table">
             <thead>
             <tr>
-                <th>VID</th>
-                <th>VDID</th>
-                <th>Brand</th>
-                <th>Type</th>
+                <th>UID</th>
+                <th>CID</th>
+                <th>Name</th>
+                <th>NIC</th>
+                <th>Email</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-            <tr>
-                <td>V001</td>
-                <td>VD001</td>
-                <td>BMW I8</td>
-                <td>Auto</td>
-            </tr>
-
             </tbody>
         </table>
     </div>
