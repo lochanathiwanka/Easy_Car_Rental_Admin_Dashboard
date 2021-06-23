@@ -27,15 +27,15 @@ function changeScreensStyles(title, css_class, valid_list_item, valid_button, li
 
 //load Home screen
 $('#btnHome').click(function () {
-    let list_items = ['line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnSettings', 'line-btnAbout'];
-    let button_list = ['btnVehicles', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnSettings', 'btnAbout'];
+    let list_items = ['line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnSchedule', 'line-btnSettings', 'line-btnAbout'];
+    let button_list = ['btnVehicles', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnSchedule', 'btnSettings', 'btnAbout'];
     changeScreensStyles('Home', 'fas fa-home', 'line-btnHome', 'btnHome', list_items, button_list);
     $('#main-container').html('<h1>Home Page</h1>');
 });
 //load Vehicle screen
 $('#btnVehicles').click(function () {
-    let list_items = ['line-btnHome', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnSettings', 'line-btnAbout'];
-    let button_list = ['btnHome', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnSettings', 'btnAbout'];
+    let list_items = ['line-btnHome', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnSchedule', 'line-btnSettings', 'line-btnAbout'];
+    let button_list = ['btnHome', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnSchedule', 'btnSettings', 'btnAbout'];
     changeScreensStyles('Vehicles', 'fas fa-car-side', 'line-btnVehicles', 'btnVehicles', list_items, button_list);
 
     $.ajax({
@@ -63,8 +63,8 @@ $('#btnVehicles').click(function () {
 });
 //load Drivers screen
 $('#btnDrivers').click(function () {
-    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnSettings', 'line-btnAbout'];
-    let button_list = ['btnHome', 'btnVehicles', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnSettings', 'btnAbout'];
+    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnSchedule', 'line-btnSettings', 'line-btnAbout'];
+    let button_list = ['btnHome', 'btnVehicles', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnSchedule', 'btnSettings', 'btnAbout'];
     changeScreensStyles('Drivers', 'fas fa-users', 'line-btnDrivers', 'btnDrivers', list_items, button_list);
 
     $.ajax({
@@ -84,8 +84,8 @@ $('#btnDrivers').click(function () {
 });
 //load Customers screen
 $('#btnCustomers').click(function () {
-    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnRequests', 'line-btnBookings', 'line-btnSettings', 'line-btnAbout'];
-    let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnRequests', 'btnBookings', 'btnSettings', 'btnAbout'];
+    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnRequests', 'line-btnBookings', 'line-btnSchedule', 'line-btnSettings', 'line-btnAbout'];
+    let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnRequests', 'btnBookings', 'btnSchedule', 'btnSettings', 'btnAbout'];
     changeScreensStyles('Customers', 'fas fa-user', 'line-btnCustomers', 'btnCustomers', list_items, button_list);
 
     $.ajax({
@@ -105,8 +105,8 @@ $('#btnCustomers').click(function () {
 });
 //load Notifications screen
 $('#btnRequests').click(function () {
-    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnBookings', 'line-btnSettings', 'line-btnAbout'];
-    let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnCustomers', 'btnBookings', 'btnSettings', 'btnAbout'];
+    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnBookings', 'line-btnSchedule', 'line-btnSettings', 'line-btnAbout'];
+    let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnCustomers', 'btnBookings', 'btnSchedule', 'btnSettings', 'btnAbout'];
     changeScreensStyles('Requests', 'fas fa-bell', 'line-btnRequests', 'btnRequests', list_items, button_list);
 
     $.ajax({
@@ -117,29 +117,42 @@ $('#btnRequests').click(function () {
         success: (data) => {
             $('#main-container').html(data);
             loadAllRequests();
+            loadAllVehicles();
             requestTblOnClick();
             requestDetailTblOnClick();
+            selectDriverFromSelectBox();
+            confirmRequest();
+            rejectRequest();
+            addRequestToBooking();
+            request_message = "Your request has been rejected!";
         }
     });
 });
 //load Bookings screen
 $('#btnBookings').click(function () {
-    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnSettings', 'line-btnAbout'];
-    let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnSettings', 'btnAbout'];
+    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnSchedule', 'line-btnSettings', 'line-btnAbout'];
+    let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnSchedule', 'btnSettings', 'btnAbout'];
     changeScreensStyles('Bookings', 'fas fa-book-open', 'line-btnBookings', 'btnBookings', list_items, button_list);
     $('#main-container').html('<h1>Bookings Page</h1>');
 });
+//load Schedule screen
+$('#btnSchedule').click(function () {
+    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnSettings', 'line-btnAbout'];
+    let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnSettings', 'btnAbout'];
+    changeScreensStyles('Schedule', 'fas fa-book-open', 'line-btnSchedule', 'btnSchedule', list_items, button_list);
+    $('#main-container').html('<h1>Schedule Page</h1>');
+});
 //load Settings screen
 $('#btnSettings').click(function () {
-    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnAbout'];
-    let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnAbout'];
+    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnSchedule', 'line-btnAbout'];
+    let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnSchedule', 'btnAbout'];
     changeScreensStyles('Settings', 'fas fa-sliders-h', 'line-btnSettings', 'btnSettings', list_items, button_list);
     $('#main-container').html('<h1>Settings Page</h1>');
 });
 //load About screen
 $('#btnAbout').click(function () {
-    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnSettings'];
-    let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnSettings'];
+    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnSchedule', 'line-btnSettings'];
+    let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnSchedule', 'btnSettings'];
     changeScreensStyles('About', 'fas fa-user-circle', 'line-btnAbout', 'btnAbout', list_items, button_list);
     $('#main-container').html('<h1>About Page</h1>');
 });
@@ -147,27 +160,6 @@ $('#btnAbout').click(function () {
 //-------------------------------------------------------------------------------------------------------------------
 
 //------------------ Vehicle Screen-----------------------------------------------------------------------------
-
-
-//vehicle form validation
-function input_validation(value) {
-    let input = value;
-    const validityState = input.validity;
-
-    if (validityState.valueMissing) {
-        input.setCustomValidity('You gotta fill this out, yo!');
-        input.reportValidity();
-        return false;
-    } else if (validityState.patternMismatch) {
-        input.setCustomValidity('Regex error');
-        input.reportValidity();
-        return false;
-    } else {
-        input.setCustomValidity('');
-        input.reportValidity();
-        return true;
-    }
-}
 
 //generate VID
 let vid;
@@ -227,79 +219,122 @@ function generateVDID() {
     });
 }
 
+//vehicle form validation
+function input_validation(value) {
+    let input = value;
+    const validityState = input.validity;
+
+    if (validityState.valueMissing) {
+        input.setCustomValidity('You gotta fill this out, yo!');
+        input.reportValidity();
+        return false;
+    } else if (validityState.patternMismatch) {
+        input.setCustomValidity('Regex error');
+        input.reportValidity();
+        return false;
+    } else {
+        input.setCustomValidity('');
+        input.reportValidity();
+        return true;
+    }
+}
+
 //add vehicle
 $('#main-container').on('click', '#btnAddVehicle', function () {
     //fields validation
-    /*let brand = $('#txtBrand')[0];
+    let brand = $('#txtBrand')[0];
     let type = $('#txtType')[0];
-    input_validation(type);
-    input_validation(brand);*/
+    let fuel_type = $('#txtFuelType')[0];
+    let transmission_type = $('#txtTransmissionType')[0];
+    let no_of_passenger = $('#txtNoOfPassenger')[0];
+    let daily_rate = $('#txtDailyRate')[0];
+    let monthly_rate = $('#txtMonthlyRate')[0];
+    let mileage = $('#txtMileage')[0];
+    let free_mileage = $('#txtFreeMileage')[0];
+    let extra_km_price = $('#txtExtraKMPrice')[0];
+    let ldw_fee = $('#txtLdwFee')[0];
+    let reg_number = $('#txtRegNumber')[0];
+    let txt_color = $('#txtColor')[0];
+    let image1 = $('#vehicle_image_1')[0];
+    let image2 = $('#vehicle_image_2')[0];
+    let image3 = $('#vehicle_image_3')[0];
+    let image4 = $('#vehicle_image_4')[0];
+    let txt_available = $('#txtAvailability')[0];
+    let txt_maintenance = $('#txtMaintenance')[0];
 
-    let vdid = $('#txtVDID').val();
 
-    //get image 1 data
-    let image1Object = $('#vehicle_image_1')[0].files[0];
-    let image1_file_name = `${vdid}-image1`;
+    if (input_validation(brand) && input_validation(type) && input_validation(fuel_type) && input_validation(transmission_type) && input_validation(no_of_passenger)
+        && input_validation(daily_rate) && input_validation(monthly_rate) && input_validation(mileage) && input_validation(free_mileage) && input_validation(extra_km_price)
+        && input_validation(ldw_fee) && input_validation(reg_number) && input_validation(txt_color) && input_validation(txt_available) && input_validation(txt_maintenance)
+        && input_validation(image1) && input_validation(image2) && input_validation(image3) && input_validation(image4)) {
 
-    //get image 2 data
-    let image2Object = $('#vehicle_image_2')[0].files[0];
-    let image2_file_name = `${vdid}-image2`;
+        let vdid = $('#txtVDID').val();
 
-    //get image 3 data
-    let image3Object = $('#vehicle_image_3')[0].files[0];
-    let image3_file_name = `${vdid}-image3`;
+        //get image 1 data
+        let image1Object = $('#vehicle_image_1')[0].files[0];
+        let image1_file_name = `${vdid}-image1`;
 
-    //get image 4 data
-    let image4Object = $('#vehicle_image_4')[0].files[0];
-    let image4_file_name = `${vdid}-image4`;
+        //get image 2 data
+        let image2Object = $('#vehicle_image_2')[0].files[0];
+        let image2_file_name = `${vdid}-image2`;
 
-    $.ajax({
-        url: 'http://localhost:8080/Easy_Car_Rental_Server/vehicle',
-        method: 'post',
-        async: true,
-        contentType: 'application/json',
-        data: JSON.stringify({
-            vid: $('#txtVid').val(),
-            brand: $('#txtBrand').val(),
-            type: $('#txtType').val(),
-            no_of_passenger: parseInt($('#txtNoOfPassenger').val()),
-            transmission_type: $('#txtTransmissionType').val(),
-            fuel_type: $('#txtFuelType').val(),
-            daily_rate: parseFloat($('#txtDailyRate').val()),
-            monthly_rate: parseFloat($('#txtMonthlyRate').val()),
-            ldw_fee: parseFloat($('#txtLdwFee').val()),
-            mileage: parseInt($('#txtMileage').val()),
-            free_mileage: $('#txtFreeMileage').val(),
-            extra_km_price: parseFloat($('#txtExtraKMPrice').val()),
-            vehicleDetailList: [
-                {
-                    vdid: vdid,
-                    vehicle: {
-                        vid: $('#txtVid').val()
-                    },
-                    image1: image1_file_name,
-                    image2: image2_file_name,
-                    image3: image3_file_name,
-                    image4: image4_file_name,
-                    reg_number: $('#txtRegNumber').val(),
-                    color: $('#txtColor :selected').val(),
-                    availability: $('#txtAvailability').val(),
-                    maintenance: $('#txtMaintenance').val()
-                }
-            ]
-        }),
-        success: function (response) {
-            uploadVehiclePhotos(image1Object, image1_file_name);
-            uploadVehiclePhotos(image2Object, image2_file_name);
-            uploadVehiclePhotos(image3Object, image3_file_name);
-            uploadVehiclePhotos(image4Object, image4_file_name);
-            alert(response.message);
-            generateVID();
-            generateVDID();
-            loadAllVehicles();
-            resetVehicleFormFields();
-        }
-    });
+        //get image 3 data
+        let image3Object = $('#vehicle_image_3')[0].files[0];
+        let image3_file_name = `${vdid}-image3`;
+
+        //get image 4 data
+        let image4Object = $('#vehicle_image_4')[0].files[0];
+        let image4_file_name = `${vdid}-image4`;
+
+        $.ajax({
+            url: 'http://localhost:8080/Easy_Car_Rental_Server/vehicle',
+            method: 'post',
+            async: true,
+            contentType: 'application/json',
+            data: JSON.stringify({
+                vid: $('#txtVid').val(),
+                brand: $('#txtBrand').val(),
+                type: $('#txtType').val(),
+                no_of_passenger: parseInt($('#txtNoOfPassenger').val()),
+                transmission_type: $('#txtTransmissionType').val(),
+                fuel_type: $('#txtFuelType').val(),
+                daily_rate: parseFloat($('#txtDailyRate').val()),
+                monthly_rate: parseFloat($('#txtMonthlyRate').val()),
+                ldw_fee: parseFloat($('#txtLdwFee').val()),
+                mileage: parseInt($('#txtMileage').val()),
+                free_mileage: $('#txtFreeMileage').val(),
+                extra_km_price: parseFloat($('#txtExtraKMPrice').val()),
+                vehicleDetailList: [
+                    {
+                        vdid: vdid,
+                        vehicle: {
+                            vid: $('#txtVid').val()
+                        },
+                        image1: image1_file_name,
+                        image2: image2_file_name,
+                        image3: image3_file_name,
+                        image4: image4_file_name,
+                        reg_number: $('#txtRegNumber').val(),
+                        color: $('#txtColor :selected').val(),
+                        availability: $('#txtAvailability').val(),
+                        maintenance: $('#txtMaintenance').val()
+                    }
+                ]
+            }),
+            success: function (response) {
+                uploadVehiclePhotos(image1Object, image1_file_name);
+                uploadVehiclePhotos(image2Object, image2_file_name);
+                uploadVehiclePhotos(image3Object, image3_file_name);
+                uploadVehiclePhotos(image4Object, image4_file_name);
+                alert(response.message);
+                generateVID();
+                generateVDID();
+                loadAllVehicles();
+                resetVehicleFormFields();
+            }
+        });
+    }
+
 });
 
 //upload vehicle photos
@@ -347,6 +382,7 @@ function resetVehicleFormFields() {
 
 //load all vehicles
 let vehicles_list;
+
 function loadAllVehicles() {
     $.ajax({
         url: 'http://localhost:8080/Easy_Car_Rental_Server/vehicle',
@@ -434,7 +470,7 @@ function vehicleTblOnClick() {
 function selectVehicleFromVehicleDataList() {
     $('#txtSearchVehicle').on('keyup', function () {
         for (let i = 0; i < vehicles_list.length; i++) {
-            if (vehicles_list[i].brand === $(this).val()) {
+            if (vehicles_list[i].brand.toLowerCase().trim() === $(this).val().toLowerCase().trim()) {
                 disableVehicleFormFields(false);
 
                 $('#txtVid').val(vehicles_list[i].vid);
@@ -890,11 +926,15 @@ function loadAllRequests() {
     });
 }
 
+loadAllRequests();
+
 //select a request from the request table
 function requestTblOnClick() {
     $('#request-table > tbody').on('click', 'tr', function () {
         let selectedRow = $(this).closest('tr');
+        $('#txtReq-Status').prop('disabled', true);
         $('#txtReq-Message').prop('disabled', true);
+        request_message = "Your request has been rejected!";
         resetRequestDetailFormFields();
         $('#request-detail-table > tbody').empty();
         for (let i = 0; i < request_list.length; i++) {
@@ -926,29 +966,39 @@ function requestTblOnClick() {
 function requestDetailTblOnClick() {
     $('#request-detail-table > tbody').on('click', 'tr', function () {
         let selectedRow = $(this).closest('tr');
+        $('#txtReq-Status').prop('disabled', false);
         $('#txtReq-Message').prop('disabled', false);
+        request_message = "Your request has been rejected!";
+        $('#txtReq-DriverName').val('');
         for (let i = 0; i < request_list.length; i++) {
             if (request_list[i].rid === selectedRow.find('td:eq(0)').text()) {
                 $('#txtRID').val(request_list[i].rid);
                 $('#txtReq-CID').val(request_list[i].customer.id);
-                $('#txtReq-Message').val(request_list[i].message);
 
                 for (let j = 0; j < request_list[i].request_detail_list.length; j++) {
                     if (request_list[i].request_detail_list[j].pk.vid === selectedRow.find('td:eq(1)').text()) {
                         $('#txtReq-VID').val(request_list[i].request_detail_list[j].pk.vid);
                         $('#txtReq-QTY').val(request_list[i].request_detail_list[j].qty);
                         $('#txtReq-RentalFee').val(request_list[i].request_detail_list[j].rental_fee);
+                        $('#txtReq-LDWFee').val(request_list[i].request_detail_list[j].ldw_fee);
                         $('#txtReq-PickupDate').val(request_list[i].request_detail_list[j].pickup_date);
                         $('#txtReq-ReturnDate').val(request_list[i].request_detail_list[j].return_date);
                         $('#txtReq-Driver').val(request_list[i].request_detail_list[j].driver);
-
+                        $('#txtReq-Status').val(request_list[i].request_detail_list[j].status);
+                        $('#txtReq-Message').val(request_list[i].request_detail_list[j].message);
 
                         //check if customer needs a driver & then set a driver to the customer
                         if (request_list[i].request_detail_list[j].driver.toLowerCase() === 'yes') {
-                            /* $('#req-SearchDriver').empty();*/
+
+                            $('#req-SearchDriver').empty();
+                            $('#req-SearchDriver').append(
+                                `
+                                 <option selected>Select a driver</option>
+                                `
+                            );
                             for (let k = 0; k < drivers_list.length; k++) {
                                 //check available drivers and load them
-                                if (drivers_list[i].availability.toLowerCase() === 'available') {
+                                if (drivers_list[k].availability.toLowerCase() === 'available') {
                                     $('#req-SearchDriver').append(
                                         `
                                         <option>${drivers_list[k].did}</option>
@@ -992,14 +1042,16 @@ function requestDetailTblOnClick() {
 function resetRequestDetailFormFields() {
     $('#txtRID').val('');
     $('#txtReq-CID').val('');
-    $('#txtReq-Message').val('');
     $('#txtReq-VID').val('');
     $('#txtReq-Brand').val('');
     $('#txtReq-QTY').val('');
     $('#txtReq-RentalFee').val('');
+    $('#txtReq-LDWFee').val('');
     $('#txtReq-PickupDate').val('');
     $('#txtReq-ReturnDate').val('');
     $('#txtReq-Driver').val('');
+    $('#txtReq-Status').val('');
+    $('#txtReq-Message').val('');
 }
 
 //get and set bank slip image
@@ -1041,4 +1093,211 @@ function disableBankSlipContainer(value) {
     $('#btnReq-Confirm').attr('disabled', value);
     $('#btnReq-AddToBooking').attr('disabled', value);
     $('#btnReq-Reject').attr('disabled', value);
+    $('#btnReq-Delete').attr('disabled', value);
+}
+
+//select a driver from select box
+function selectDriverFromSelectBox() {
+    $('#req-SearchDriver').change(function () {
+        let selected_did = $(this).children("option:selected").val();
+        for (let i = 0; i < drivers_list.length; i++) {
+            if (drivers_list[i].did === selected_did) {
+                $('#txtReq-DriverName').val(drivers_list[i].name);
+            }
+        }
+    });
+}
+
+//confirm request
+function confirmRequest() {
+    onMessageTyping();
+    $('#btnReq-Confirm').click(function () {
+        $.ajax({
+            url: 'http://localhost:8080/Easy_Car_Rental_Server/request_detail/update_request_message',
+            method: 'put',
+            async: true,
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({
+                pk: {
+                    rid: $('#txtRID').val(),
+                    vid: $('#txtReq-VID').val()
+                },
+                qty: $('#txtReq-QTY').val(),
+                driver: $('#txtReq-Driver').val(),
+                pickup_date: $('#txtReq-PickupDate').val(),
+                return_date: $('#txtReq-ReturnDate').val(),
+                rental_fee: $('#txtReq-RentalFee').val(),
+                ldw_fee: $('#txtReq-LDWFee').val(),
+                message: request_message,
+                status: $('#txtReq-Status').val()
+            }),
+            success: function (response) {
+                alert(response.message);
+                loadAllRequests();
+                resetRequestDetailFormFields();
+                disableBankSlipContainer(true);
+                $('#txtReq-Status').prop('disabled', true);
+                $('#txtReq-Message').prop('disabled', true);
+            }
+        });
+    });
+}
+
+//reject request
+function rejectRequest() {
+    onMessageTyping();
+    $('#btnReq-Reject').click(function () {
+        $.ajax({
+            url: 'http://localhost:8080/Easy_Car_Rental_Server/request_detail/update_request_message',
+            method: 'put',
+            async: true,
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({
+                pk: {
+                    rid: $('#txtRID').val(),
+                    vid: $('#txtReq-VID').val()
+                },
+                qty: $('#txtReq-QTY').val(),
+                driver: $('#txtReq-Driver').val(),
+                pickup_date: $('#txtReq-PickupDate').val(),
+                return_date: $('#txtReq-ReturnDate').val(),
+                rental_fee: $('#txtReq-RentalFee').val(),
+                ldw_fee: $('#txtReq-LDWFee').val(),
+                message: request_message,
+                status: $('#txtReq-Status').val()
+            }),
+            success: function (response) {
+                alert('Request has been rejected!');
+                loadAllRequests();
+                resetRequestDetailFormFields();
+                disableBankSlipContainer(true);
+                $('#txtReq-Status').prop('disabled', true);
+                $('#txtReq-Message').prop('disabled', true);
+            }
+        });
+    });
+}
+
+//select vehicle from the vehicle data list
+let request_message = "Your request has been rejected!";
+
+function onMessageTyping() {
+    $('#txtReq-Message').on('keyup', function () {
+        request_message = $(this).val();
+    });
+}
+
+//add request to bookings
+function addRequestToBooking() {
+    /*if ($('#txtReq-Driver').val().toLowerCase() === 'yes') {
+
+    } else {}*/
+
+    $('#btnReq-AddToBooking').click(function () {
+
+        //check available vehicles and assign a vehicle
+        let available_vehicles = [];
+        for (let i = 0; i < vehicles_list.length; i++) {
+            for (let j = 0; j < vehicles_list[i].vehicleDetailList.length; j++) {
+                if (vehicles_list[i].vehicleDetailList[j].vehicle.vid === $('#txtReq-VID').val() && vehicles_list[i].vehicleDetailList[j].availability.toLowerCase() === 'available') {
+                    available_vehicles.push(vehicles_list[i].vehicleDetailList[j].vdid);
+                }
+            }
+        }
+
+        let bank_slip;
+        let total_fee;
+        for (let i = 0; i < request_list.length; i++) {
+            if (request_list[i].rid === $('#txtRID').val()) {
+                bank_slip = request_list[i].bank_slip;
+                total_fee = request_list[i].total_fee;
+                break;
+            }
+        }
+
+        $.ajax({
+            url: 'http://localhost:8080/Easy_Car_Rental_Server/booking',
+            method: 'post',
+            async: true,
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({
+                bid: booking_id,
+                customer: {
+                    id: $('#txtReq-CID').val()
+                },
+                booking_detail_list: [
+                    {
+                        pk: {
+                            bid: booking_id,
+                            vdid: available_vehicles[0],
+                            did: '000'
+                        },
+                        pickup_date: $('#txtReq-PickupDate').val(),
+                        return_date: $('#txtReq-ReturnDate').val(),
+                        return_time: 'empty',
+                        rental_fee: $('#txtReq-RentalFee').val(),
+                        ldw_fee: $('#txtReq-LDWFee').val()
+                    }
+                ],
+                date: new Date().toLocaleDateString(),
+                total_fee: total_fee,
+                bank_slip: bank_slip
+            }),
+            success: function (response) {
+                alert(response.message);
+                deleteRequest($('#txtRID').val(), $('#txtReq-VID').val());
+                resetRequestDetailFormFields();
+                disableBankSlipContainer(true);
+                $('#txtReq-Status').prop('disabled', true);
+                $('#txtReq-Message').prop('disabled', true);
+            }
+        });
+    });
+}
+
+//generate booking id
+let booking_id;
+
+function generateBookingId() {
+    $.ajax({
+        url: 'http://localhost:8080/Easy_Car_Rental_Server/booking',
+        method: 'get',
+        async: true,
+        dataType: 'json',
+        success: function (response) {
+            try {
+                let last_bid = response.data;
+                let newId = parseInt(last_bid.substring(1, 4)) + 1;
+                if (newId < 10) {
+                    booking_id = "B00" + newId;
+                } else if (newId < 100) {
+                    booking_id = "B0" + newId;
+                } else {
+                    booking_id = "B" + newId;
+                }
+
+            } catch (e) {
+                booking_id = "B001";
+            }
+
+            console.log(booking_id);
+        }
+    });
+}
+
+generateBookingId();
+
+//delete request from request table
+function deleteRequest(rid, vid) {
+    $.ajax({
+        url: `http://localhost:8080/Easy_Car_Rental_Server/request_detail/delete_request_details?rid=${rid}&vid=${vid}`,
+        method: 'delete',
+        async: true,
+        success: function (response) {
+            loadAllRequests();
+        }
+    });
 }
