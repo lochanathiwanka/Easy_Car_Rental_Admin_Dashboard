@@ -1,0 +1,80 @@
+<div class="booking-content-container" id="booking-content-container">
+    <div class="header"></div>
+    <div class="booking-table-container">
+        <h3>Booking</h3>
+        <table class="booking-table table table-striped table-hover" id="booking-table">
+            <thead>
+            <tr>
+                <th>BID</th>
+                <th>CID</th>
+                <th>Date</th>
+                <th>Total Fee</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="booking-detail-table-container">
+        <h3>Booking Details</h3>
+        <table class="booking-detail-table table table-striped table-hover" id="booking-detail-table">
+            <thead>
+            <tr>
+                <th>BID</th>
+                <th>VDID</th>
+                <th>DID</th>
+                <th>Pickup Date</th>
+                <th>Return Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <form class="booking-detail-form row g-3">
+        <div class="col-md-2">
+            <label class="form-label" for="txtBID">BID</label>
+            <input class="form-control" disabled id="txtBID" required type="text">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label" for="txtBooking-CID">CID</label>
+            <input class="form-control" disabled id="txtBooking-CID" required type="text">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label" for="txtBooking-DID">DID</label>
+            <input class="form-control" disabled id="txtBooking-DID" required type="text">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label" for="txtBooking-VDID">VDID</label>
+            <input class="form-control" disabled id="txtBooking-VDID" required type="text">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label" for="txtBooking-Brand">Brand</label>
+            <input class="form-control" disabled id="txtBooking-Brand" required type="text">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label" for="txtBooking-PickupDate">Pickup Date</label>
+            <input class="form-control" disabled id="txtBooking-PickupDate" required type="date">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label" for="txtBooking-ReturnDate">Return Date</label>
+            <input class="form-control" disabled id="txtBooking-ReturnDate" required type="date">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label" for="txtBooking-ReturnTime">Return Time</label>
+            <input class="form-control" disabled id="txtBooking-ReturnTime" required type="text">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label" for="txtBooking-RentalFee">Rental Fee</label>
+            <input class="form-control" disabled id="txtBooking-RentalFee" required type="text">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label" for="txtBooking-LDWFee">LDW Fee</label>
+            <input class="form-control" disabled id="txtBooking-LDWFee" required type="text">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-success" disabled id="btnBooking-Update" type="button">Update</button>
+        </div>
+    </form>
+    <div class="footer"></div>
+</div>

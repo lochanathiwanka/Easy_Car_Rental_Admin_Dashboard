@@ -136,7 +136,20 @@ $('#btnBookings').click(function () {
     let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnSchedule', 'line-btnSettings', 'line-btnAbout'];
     let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnSchedule', 'btnSettings', 'btnAbout'];
     changeScreensStyles('Bookings', 'fas fa-book-open', 'line-btnBookings', 'btnBookings', list_items, button_list);
-    $('#main-container').html('<h1>Bookings Page</h1>');
+
+    $.ajax({
+        method: 'GET',
+        async: true,
+        url: './views/booking.html',
+        contentType: 'text/html',
+        success: (data) => {
+            $('#main-container').html(data);
+            loadAllBookings();
+            bookingTblOnClick();
+            bookingDetailTblOnClick();
+            updateBookingDetails();
+        }
+    });
 });
 //load Schedule screen
 $('#btnSchedule').click(function () {
@@ -921,6 +934,7 @@ function setUserImages(user_role, image, img_source) {
 
 //load all requests
 let request_list;
+
 function loadAllRequests() {
     $.ajax({
         url: 'http://localhost:8080/Easy_Car_Rental_Server/request',
@@ -944,6 +958,7 @@ function loadAllRequests() {
         }
     });
 }
+
 loadAllRequests();
 
 //select a request from the request table
@@ -1457,36 +1472,6 @@ function changeDriverAvailability(did) {
     });
 }
 
-//generate booking id
-let booking_id;
-
-function generateBookingId() {
-    $.ajax({
-        url: 'http://localhost:8080/Easy_Car_Rental_Server/booking',
-        method: 'get',
-        async: true,
-        dataType: 'json',
-        success: function (response) {
-            try {
-                let last_bid = response.data;
-                let newId = parseInt(last_bid.substring(1, 4)) + 1;
-                if (newId < 10) {
-                    booking_id = "B00" + newId;
-                } else if (newId < 100) {
-                    booking_id = "B0" + newId;
-                } else {
-                    booking_id = "B" + newId;
-                }
-
-            } catch (e) {
-                booking_id = "B001";
-            }
-        }
-    });
-}
-
-generateBookingId();
-
 //delete all requests with parent from request table
 function deleteAllRequestsWithParent(rid) {
     $.ajax({
@@ -1892,6 +1877,205 @@ function deleteVehicleSchedule() {
                 $('#btnUpdateVehicleSchedule').attr('disabled', true);
                 $('#btnDeleteVehicleSchedule').attr('disabled', true);
                 vehicle_schedule_vdid = '';
+            }
+        });
+    });
+}
+
+//------------------------------------------------------------------------------
+
+
+//-------------Booking------------------------
+
+//generate booking id
+let booking_id;
+
+function generateBookingId() {
+    $.ajax({
+        url: 'http://localhost:8080/Easy_Car_Rental_Server/booking/last_id',
+        method: 'get',
+        async: true,
+        dataType: 'json',
+        success: function (response) {
+            try {
+                let last_bid = response.data;
+                let newId = parseInt(last_bid.substring(1, 4)) + 1;
+                if (newId < 10) {
+                    booking_id = "B00" + newId;
+                } else if (newId < 100) {
+                    booking_id = "B0" + newId;
+                } else {
+                    booking_id = "B" + newId;
+                }
+
+            } catch (e) {
+                booking_id = "B001";
+            }
+        }
+    });
+}
+
+generateBookingId();
+
+//load all bookings
+let booking_list;
+
+function loadAllBookings() {
+    $.ajax({
+        url: 'http://localhost:8080/Easy_Car_Rental_Server/booking',
+        method: 'get',
+        async: true,
+        dataType: 'json',
+        success: function (response) {
+            booking_list = response.data;
+            $('#booking-table > tbody').empty();
+            for (let i = 0; i < booking_list.length; i++) {
+                $('#booking-table > tbody').append(
+                    `
+                    <tr>
+                        <td>${booking_list[i].bid}</td>
+                        <td>${booking_list[i].customer.id}</td>
+                        <td>${booking_list[i].date}</td>
+                        <td>${booking_list[i].total_fee}</td>
+                    </tr>
+                    `
+                );
+            }
+        }
+    });
+}
+
+loadAllBookings();
+
+//booking table on click
+function bookingTblOnClick() {
+    $('#booking-table > tbody').on('click', 'tr', function () {
+        let selectedRow = $(this).closest('tr');
+        resetBookingDetailFields();
+        disableBookingDetailFields(true, true);
+        for (let i = 0; i < booking_list.length; i++) {
+            if (booking_list[i].bid === selectedRow.find('td:eq(0)').text()) {
+                $('#booking-detail-table > tbody').empty();
+                for (let j = 0; j < booking_list[i].booking_detail_list.length; j++) {
+                    $('#booking-detail-table > tbody').append(
+                        `
+                        <tr>
+                            <td>${booking_list[i].bid}</td>
+                            <td>${booking_list[i].booking_detail_list[j].pk.vdid}</td>
+                            <td>${booking_list[i].booking_detail_list[j].pk.did}</td>
+                            <td>${booking_list[i].booking_detail_list[j].pickup_date}</td>
+                            <td>${booking_list[i].booking_detail_list[j].return_date}</td>
+                        </tr>
+                        `
+                    );
+                }
+            }
+        }
+    });
+}
+
+//booking detail table on click
+function bookingDetailTblOnClick() {
+    $('#booking-detail-table > tbody').on('click', 'tr', function () {
+        let selectedRow = $(this).closest('tr');
+        disableBookingDetailFields(true, false);
+        for (let i = 0; i < booking_list.length; i++) {
+            if (booking_list[i].bid === selectedRow.find('td:eq(0)').text()) {
+
+                $('#txtBID').val(booking_list[i].bid);
+                $('#txtBooking-CID').val(booking_list[i].customer.id);
+
+                for (let j = 0; j < booking_list[i].booking_detail_list.length; j++) {
+                    $('#txtBooking-DID').val(booking_list[i].booking_detail_list[j].pk.did);
+                    $('#txtBooking-VDID').val(booking_list[i].booking_detail_list[j].pk.vdid);
+                    $('#txtBooking-ReturnTime').val(booking_list[i].booking_detail_list[j].return_time);
+                    $('#txtBooking-RentalFee').val(booking_list[i].booking_detail_list[j].rental_fee);
+                    $('#txtBooking-LDWFee').val(booking_list[i].booking_detail_list[j].ldw_fee);
+
+                    //convert date into yyyy-mm-dd format
+                    //start date
+                    let pickup_date = new Date(booking_list[i].booking_detail_list[j].pickup_date).toLocaleDateString('en-ZA');
+                    let pickup_date_split = pickup_date.split('/', 3);
+                    $('#txtBooking-PickupDate').val(`${pickup_date_split[0]}-${pickup_date_split[1]}-${pickup_date_split[2]}`);
+                    //end date
+                    let return_date = new Date(booking_list[i].booking_detail_list[j].return_date).toLocaleDateString('en-ZA');
+                    let return_date_split = return_date.split('/', 3);
+                    $('#txtBooking-ReturnDate').val(`${return_date_split[0]}-${return_date_split[1]}-${return_date_split[2]}`);
+                }
+
+                //set vehicle brand
+                for (let j = 0; j < vehicles_list.length; j++) {
+                    for (let k = 0; k < vehicles_list[j].vehicleDetailList.length; k++) {
+                        if (vehicles_list[j].vehicleDetailList[k].vdid === $('#txtBooking-VDID').val()) {
+                            $('#txtBooking-Brand').val(vehicles_list[j].brand);
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+//reset booking form fields
+function resetBookingDetailFields() {
+    $('#txtBID').val('');
+    $('#txtBooking-CID').val('');
+    $('#txtBooking-DID').val('');
+    $('#txtBooking-VDID').val('');
+    $('#txtBooking-Brand').val('');
+    $('#txtBooking-PickupDate').val('');
+    $('#txtBooking-ReturnDate').val('');
+    $('#txtBooking-ReturnTime').val('');
+    $('#txtBooking-RentalFee').val('');
+    $('#txtBooking-LDWFee').val('');
+}
+
+//disable booking form fields
+function disableBookingDetailFields(value1, value2) {
+    $('#txtBID').attr('disabled', value1);
+    $('#txtBooking-CID').attr('disabled', value1);
+    $('#txtBooking-DID').attr('disabled', value1);
+    $('#txtBooking-VDID').attr('disabled', value1);
+    $('#txtBooking-Brand').attr('disabled', value1);
+    $('#txtBooking-PickupDate').attr('disabled', value2);
+    $('#txtBooking-ReturnDate').attr('disabled', value2);
+    $('#txtBooking-ReturnTime').attr('disabled', value2);
+    $('#txtBooking-RentalFee').attr('disabled', value2);
+    $('#txtBooking-LDWFee').attr('disabled', value1);
+    $('#btnBooking-Update').attr('disabled', value2);
+}
+
+//update booking details
+function updateBookingDetails() {
+    $('#btnBooking-Update').click(function () {
+        let bid = $('#txtBID').val();
+        let did = $('#txtBooking-DID').val();
+        let vdid = $('#txtBooking-VDID').val();
+        let pickup_date = $('#txtBooking-PickupDate').val();
+        let return_date = $('#txtBooking-ReturnDate').val();
+        let return_time = '123';
+        let rental_fee = parseFloat($('#txtBooking-RentalFee').val());
+        let ldw_fee = parseFloat($('#txtBooking-LDWFee').val());
+
+        $.ajax({
+            url: `http://localhost:8080/Easy_Car_Rental_Server/booking_detail`,
+            method: 'put',
+            async: true,
+            dataType: 'json',
+            data: JSON.stringify({
+                pk: {
+                    bid: bid,
+                    vdid: vdid,
+                    did: did
+                },
+                pickup_date: pickup_date.toLocaleDateString(),
+                return_date: return_date.toLocaleDateString(),
+                return_time: '',
+                rental_fee: rental_fee,
+                ldw_fee: ldw_fee
+            }),
+            success: function (response) {
+                console.log(response);
             }
         });
     });
