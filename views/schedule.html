@@ -1,0 +1,99 @@
+<div class="schedule-content-container" id="schedule-content-container">
+    <div class="drivers-schedule-container">
+        <div class="header"></div>
+        <div class="drivers-schedule-table-container">
+            <h3>Drivers Schedule</h3>
+            <table class="drivers-schedule-table table table-striped table-hover"
+                   id="drivers-schedule-table">
+                <thead>
+                <tr>
+                    <th>Driver SDID</th>
+                    <th>DID</th>
+                    <th>Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <form class="drivers-schedule-form row g-3">
+            <div class="col-md-6">
+                <label class="form-label" for="sch-SearchDriver">Search Driver</label>
+                <input class="form-control" id="sch-SearchDriver" list="sch-drivers-data-list"
+                       placeholder="Type to search...">
+                <datalist id="sch-drivers-data-list"></datalist>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="txtSch-DriverName">Name</label>
+                <input aria-label="disabled uid" class="form-control" disabled id="txtSch-DriverName"
+                       readonly required type="text">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="sch-Driver-StartDate">Start Date</label>
+                <input class="form-control" disabled id="sch-Driver-StartDate" required
+                       type="date">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="sch-Driver-EndDate">End Date</label>
+                <input class="form-control" disabled id="sch-Driver-EndDate" required type="date">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-warning" disabled id="btnUpdateDriverSchedule" type="button">Update</button>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-danger" disabled id="btnDeleteDriverSchedule" type="button">Delete</button>
+            </div>
+        </form>
+        <div class="footer"></div>
+    </div>
+    <div class="vehicles-schedule-container">
+        <div class="header"></div>
+        <div class="vehicle-schedule-table-container">
+            <h3>Vehicles Schedule</h3>
+            <table class="vehicle-schedule-table table table-striped table-hover"
+                   id="vehicle-schedule-table">
+                <thead>
+                <tr>
+                    <th>Vehicle SDID</th>
+                    <th>VDID</th>
+                    <th>Brand</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <form class="vehicle-schedule-form row g-3">
+            <div class="col-md-6">
+                <label class="form-label" for="sch-SearchVehicle">Search Vehicle</label>
+                <input class="form-control" id="sch-SearchVehicle" list="sch-vehicle-data-list"
+                       placeholder="Type to search...">
+                <datalist id="sch-vehicle-data-list"></datalist>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="txtSch-VehicleBrand">Brand</label>
+                <input class="form-control" disabled id="txtSch-VehicleBrand" readonly required type="text">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="sch-Vehicle-StartDate">Start Date</label>
+                <input class="form-control" disabled id="sch-Vehicle-StartDate" required
+                       type="date">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" for="sch-Vehicle-EndDate">End Date</label>
+                <input class="form-control" disabled id="sch-Vehicle-EndDate" required type="date">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-warning" disabled id="btnUpdateVehicleSchedule" type="button">Update</button>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-danger" disabled id="btnDeleteVehicleSchedule" type="button">Delete</button>
+            </div>
+        </form>
+        <div class="footer"></div>
+    </div>
+</div>

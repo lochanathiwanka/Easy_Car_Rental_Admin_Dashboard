@@ -74,9 +74,20 @@
             <label class="form-label" for="txtReq-Status">Status</label>
             <input class="form-control" disabled id="txtReq-Status" required type="text">
         </div>
+        <div class="col-md-6 mb-3" id="req-search-driver-container">
+            <label class="form-label" for="txtReq-DriverName">Select a Driver</label>
+            <select aria-label="Default select example" class="form-select" disabled id="req-SearchDriver" required>
+                <option selected>Select</option>
+            </select>
+        </div>
+        <div class="col-md-6 mb-3" id="req-driver-name-container">
+            <label class="form-label" for="txtReq-DriverName">Driver Name</label>
+            <input class="form-control" disabled id="txtReq-DriverName" readonly required type="text">
+        </div>
         <div class="col-md-12">
             <label class="form-label" for="txtReq-Message">Message</label>
-            <input class="form-control" disabled id="txtReq-Message" required type="text">
+            <textarea class="form-control" disabled id="txtReq-Message" required></textarea>
+            <!--<input class="form-control" disabled id="txtReq-Message" required type="text">-->
         </div>
     </form>
     <form class="bank-slip-form row g-3">
@@ -84,14 +95,15 @@
             <img alt="bank_slip_image" class="img-fluid" id="bank_slip_image" src="">
         </div>
         <div class="col-md-6">
-            <div class="col-md-12 mb-3" id="req-search-driver-container">
-                <select aria-label="Default select example" class="form-select" disabled id="req-SearchDriver">
-                    <option selected>Select a driver</option>
+            <div class="col-md-12 mb-3" id="req-search-vehicle-container">
+                <select aria-label="Default select example" class="form-select" disabled id="req-SearchVehicle"
+                        required>
+                    <option selected>Select a vehicle</option>
                 </select>
             </div>
-            <div class="col-md-12 mb-3" id="req-driver-name-container">
-                <label class="form-label" for="txtReq-DriverName">Driver Name</label>
-                <input class="form-control" disabled id="txtReq-DriverName" readonly required type="text">
+            <div class="col-md-12 mb-3" id="req-vehicle-reg-container">
+                <label class="form-label" for="txtReq-VehicleReg">Vehicle Reg</label>
+                <input class="form-control" disabled id="txtReq-VehicleReg" readonly required type="text">
             </div>
             <div class="col-md-6 mb-3">
                 <button class="btn btn-success" disabled id="btnReq-Confirm" type="button">Confirm</button>
