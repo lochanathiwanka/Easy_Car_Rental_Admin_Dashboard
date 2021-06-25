@@ -148,6 +148,7 @@ $('#btnBookings').click(function () {
             bookingTblOnClick();
             bookingDetailTblOnClick();
             updateBookingDetails();
+            changeBookedVehicleAvailability();
         }
     });
 });
@@ -174,20 +175,6 @@ $('#btnSchedule').click(function () {
             deleteVehicleSchedule();
         }
     });
-});
-//load Settings screen
-$('#btnSettings').click(function () {
-    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnSchedule', 'line-btnAbout'];
-    let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnSchedule', 'btnAbout'];
-    changeScreensStyles('Settings', 'fas fa-sliders-h', 'line-btnSettings', 'btnSettings', list_items, button_list);
-    $('#main-container').html('<h1>Settings Page</h1>');
-});
-//load About screen
-$('#btnAbout').click(function () {
-    let list_items = ['line-btnHome', 'line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnSchedule', 'line-btnSettings'];
-    let button_list = ['btnHome', 'btnVehicles', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnSchedule', 'btnSettings'];
-    changeScreensStyles('About', 'fas fa-user-circle', 'line-btnAbout', 'btnAbout', list_items, button_list);
-    $('#main-container').html('<h1>About Page</h1>');
 });
 
 //-------------------------------------------------------------------------------------------------------------------
@@ -1426,7 +1413,7 @@ function addRequestToBooking() {
                     alert(response.message);
 
                     //update vehicle availability
-                    changeVehicleAvailability(vdid);
+                    changeVehicleAvailability(vdid, 'Unavailable');
 
                     //check if customer needs a driver and then update driver availability
                     if ($('#txtReq-Driver').val().toLowerCase() === 'yes') {
@@ -1447,9 +1434,9 @@ function addRequestToBooking() {
 }
 
 //change vehicle availability
-function changeVehicleAvailability(vdid) {
+function changeVehicleAvailability(vdid, value) {
     $.ajax({
-        url: `http://localhost:8080/Easy_Car_Rental_Server/vehicle_detail/update_availability?id=${vdid}`,
+        url: `http://localhost:8080/Easy_Car_Rental_Server/vehicle_detail/update_availability?id=${vdid}&status=${value}`,
         method: 'put',
         async: true,
         dataType: 'json',
@@ -1975,6 +1962,7 @@ function bookingTblOnClick() {
 }
 
 //booking detail table on click
+let booking_rental_fee;
 function bookingDetailTblOnClick() {
     $('#booking-detail-table > tbody').on('click', 'tr', function () {
         let selectedRow = $(this).closest('tr');
@@ -1990,6 +1978,7 @@ function bookingDetailTblOnClick() {
                     $('#txtBooking-VDID').val(booking_list[i].booking_detail_list[j].pk.vdid);
                     $('#txtBooking-ReturnTime').val(booking_list[i].booking_detail_list[j].return_time);
                     $('#txtBooking-RentalFee').val(booking_list[i].booking_detail_list[j].rental_fee);
+                    booking_rental_fee = booking_list[i].booking_detail_list[j].rental_fee;
                     $('#txtBooking-LDWFee').val(booking_list[i].booking_detail_list[j].ldw_fee);
 
                     //convert date into yyyy-mm-dd format
@@ -2043,6 +2032,7 @@ function disableBookingDetailFields(value1, value2) {
     $('#txtBooking-RentalFee').attr('disabled', value2);
     $('#txtBooking-LDWFee').attr('disabled', value1);
     $('#btnBooking-Update').attr('disabled', value2);
+    $('#btnBooking-ChangeVehicleAvailability').attr('disabled', value2);
 }
 
 //update booking details
@@ -2051,17 +2041,24 @@ function updateBookingDetails() {
         let bid = $('#txtBID').val();
         let did = $('#txtBooking-DID').val();
         let vdid = $('#txtBooking-VDID').val();
-        let pickup_date = $('#txtBooking-PickupDate').val();
-        let return_date = $('#txtBooking-ReturnDate').val();
-        let return_time = '123';
+        let pickup_date = new Date($('#txtBooking-PickupDate').val());
+        let return_date = new Date($('#txtBooking-ReturnDate').val());
+
+        //get current time
+        let today = new Date();
+        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+        let return_time = time;
         let rental_fee = parseFloat($('#txtBooking-RentalFee').val());
         let ldw_fee = parseFloat($('#txtBooking-LDWFee').val());
+
 
         $.ajax({
             url: `http://localhost:8080/Easy_Car_Rental_Server/booking_detail`,
             method: 'put',
             async: true,
-            dataType: 'json',
+            contentType: 'application/json',
             data: JSON.stringify({
                 pk: {
                     bid: bid,
@@ -2070,13 +2067,46 @@ function updateBookingDetails() {
                 },
                 pickup_date: pickup_date.toLocaleDateString(),
                 return_date: return_date.toLocaleDateString(),
-                return_time: '',
+                return_time: return_time,
                 rental_fee: rental_fee,
                 ldw_fee: ldw_fee
             }),
             success: function (response) {
-                console.log(response);
+                alert(response.message);
+
+                if (rental_fee !== booking_rental_fee || rental_fee > booking_rental_fee) {
+                    updateBookingTotalFee(bid, (rental_fee - booking_rental_fee));
+                } else {
+                    loadAllBookings();
+                    resetBookingDetailFields();
+                    disableBookingDetailFields(true, true);
+                    $('#booking-detail-table > tbody').empty();
+                }
             }
         });
+    });
+}
+
+//update booking total fee
+function updateBookingTotalFee(bid, fee) {
+    $.ajax({
+        url: `http://localhost:8080/Easy_Car_Rental_Server/booking?id=${bid}&fee=${fee}`,
+        method: 'put',
+        async: true,
+        success: function (response) {
+            loadAllBookings();
+            resetBookingDetailFields();
+            disableBookingDetailFields(true, true);
+            $('#booking-detail-table > tbody').empty();
+        }
+    });
+}
+
+//change vehicle availability
+function changeBookedVehicleAvailability() {
+    $('#btnBooking-ChangeVehicleAvailability').click(function () {
+        let vdid = $('#txtBooking-VDID').val();
+        changeVehicleAvailability(vdid, 'Available');
+        alert('Vehicle availability updated!');
     });
 }
