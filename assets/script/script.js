@@ -26,11 +26,33 @@ function changeScreensStyles(title, css_class, valid_list_item, valid_button, li
 //-------------------------------Load Screens----------------------------------
 
 //load Home screen
+$.ajax({
+    method: 'GET',
+    async: true,
+    url: './views/home.html',
+    contentType: 'text/html',
+    success: (data) => {
+        $('#main-container').html(data);
+    }
+});
 $('#btnHome').click(function () {
     let list_items = ['line-btnVehicles', 'line-btnDrivers', 'line-btnCustomers', 'line-btnRequests', 'line-btnBookings', 'line-btnSchedule', 'line-btnSettings', 'line-btnAbout'];
     let button_list = ['btnVehicles', 'btnDrivers', 'btnCustomers', 'btnRequests', 'btnBookings', 'btnSchedule', 'btnSettings', 'btnAbout'];
     changeScreensStyles('Home', 'fas fa-home', 'line-btnHome', 'btnHome', list_items, button_list);
-    $('#main-container').html('<h1>Home Page</h1>');
+
+    $.ajax({
+        method: 'GET',
+        async: true,
+        url: './views/home.html',
+        contentType: 'text/html',
+        success: (data) => {
+            $('#main-container').html(data);
+            loadAllVehicles();
+            loadAllBookings();
+            loadAllCustomers();
+            loadAllDrivers();
+        }
+    });
 });
 //load Vehicle screen
 $('#btnVehicles').click(function () {
@@ -178,6 +200,60 @@ $('#btnSchedule').click(function () {
 });
 
 //-------------------------------------------------------------------------------------------------------------------
+
+//-----------------Home-------------------
+
+//set registered users
+function setRegisteredUsers() {
+    for (let i = 0; i < customers_list.length; i++) {
+        let old_count = parseInt($('#txt-registered-users').text());
+        $('#txt-registered-users').text(old_count + 1);
+    }
+}
+
+//set available cars
+function setAvailableCars() {
+    for (let i = 0; i < vehicles_list.length; i++) {
+        for (let j = 0; j < vehicles_list[i].vehicleDetailList.length; j++) {
+            if (vehicles_list[i].vehicleDetailList[j].availability.toLowerCase() === 'available') {
+                let old_count = parseInt($('#txt-available-cars').text());
+                $('#txt-available-cars').text(old_count + 1);
+            }
+        }
+    }
+}
+
+//set total bookings
+function setTotalBookings() {
+    for (let i = 0; i < booking_list.length; i++) {
+        for (let j = 0; j < booking_list[i].booking_detail_list.length; j++) {
+            let old_count = parseInt($('#txt-tot-bookings').text());
+            $('#txt-tot-bookings').text(old_count + 1);
+        }
+    }
+}
+
+//set today bookings
+function setTodayBookings() {
+    for (let i = 0; i < booking_list.length; i++) {
+        for (let j = 0; j < booking_list[i].booking_detail_list.length; j++) {
+            let today = new Date();
+            if (booking_list[i].booking_detail_list[j].pickup_date === today.toLocaleDateString()) {
+                let old_count = parseInt($('#txt-today-bookings').text());
+                $('#txt-today-bookings').text(old_count + 1);
+            }
+        }
+    }
+}
+
+//set available drivers
+function setAvailableDrivers() {
+    for (let i = 0; i < drivers_list.length; i++) {
+        let old_count = parseInt($('#txt-available-drivers').text());
+        $('#txt-available-drivers').text(old_count + 1);
+    }
+}
+
 
 //------------------ Vehicle Screen-----------------------------------------------------------------------------
 
@@ -402,7 +478,6 @@ function resetVehicleFormFields() {
 
 //load all vehicles
 let vehicles_list;
-
 function loadAllVehicles() {
     $.ajax({
         url: 'http://localhost:8080/Easy_Car_Rental_Server/vehicle',
@@ -410,6 +485,7 @@ function loadAllVehicles() {
         async: true,
         dataType: 'json',
         success: function (response) {
+            let count;
             vehicles_list = response.data;
             $('#vehicle-table > tbody').empty();
             $('#vehicle-data-list').empty();
@@ -429,10 +505,11 @@ function loadAllVehicles() {
                 //add vehicle brand into vehicle data list
                 addDataIntoVehicleDataList(vehicles_list[i].brand);
             }
+
+            setAvailableCars();
         }
     });
 }
-
 loadAllVehicles();
 
 //add vehicle data into vehicle-data-list
@@ -695,7 +772,6 @@ function updateVehicleCategory() {
 
 //load all drivers
 let drivers_list;
-
 function loadAllDrivers() {
     $.ajax({
         url: 'http://localhost:8080/Easy_Car_Rental_Server/driver',
@@ -723,10 +799,11 @@ function loadAllDrivers() {
                 //add driver's name into drivers data list
                 addDataIntoDriversDataList(drivers_list[i].name);
             }
+
+            setAvailableDrivers();
         }
     });
 }
-
 loadAllDrivers();
 
 //add drivers data into drivers-data-list
@@ -795,7 +872,6 @@ function selectDriverFromDriversDataList() {
 
 //load all customers
 let customers_list;
-
 function loadAllCustomers() {
     $.ajax({
         url: 'http://localhost:8080/Easy_Car_Rental_Server/customer',
@@ -822,9 +898,13 @@ function loadAllCustomers() {
                 //add customers's name into customers data list
                 addDataIntoCustomersDataList(customers_list[i].name);
             }
+
+            setRegisteredUsers();
         }
     });
 }
+
+loadAllCustomers();
 
 //add customers data into customers-data-list
 function addDataIntoCustomersDataList(customer_name) {
@@ -921,7 +1001,6 @@ function setUserImages(user_role, image, img_source) {
 
 //load all requests
 let request_list;
-
 function loadAllRequests() {
     $.ajax({
         url: 'http://localhost:8080/Easy_Car_Rental_Server/request',
@@ -945,7 +1024,6 @@ function loadAllRequests() {
         }
     });
 }
-
 loadAllRequests();
 
 //select a request from the request table
@@ -1521,7 +1599,6 @@ function btnReqDeleteOnAction() {
 
 //generate driver schedule id
 let driver_sdid;
-
 function generateDriver_Sdid() {
     $.ajax({
         url: `http://localhost:8080/Easy_Car_Rental_Server/driver_schedule/last_id`,
@@ -1546,12 +1623,10 @@ function generateDriver_Sdid() {
         }
     });
 }
-
 generateDriver_Sdid();
 
 //load all drivers schedule
 let driver_schedule_list;
-
 function loadAllDriversSchedule() {
     $.ajax({
         url: 'http://localhost:8080/Easy_Car_Rental_Server/driver_schedule',
@@ -1577,7 +1652,6 @@ function loadAllDriversSchedule() {
         }
     });
 }
-
 loadAllDriversSchedule();
 
 //drivers schedule table on click
@@ -1876,7 +1950,6 @@ function deleteVehicleSchedule() {
 
 //generate booking id
 let booking_id;
-
 function generateBookingId() {
     $.ajax({
         url: 'http://localhost:8080/Easy_Car_Rental_Server/booking/last_id',
@@ -1901,12 +1974,10 @@ function generateBookingId() {
         }
     });
 }
-
 generateBookingId();
 
 //load all bookings
 let booking_list;
-
 function loadAllBookings() {
     $.ajax({
         url: 'http://localhost:8080/Easy_Car_Rental_Server/booking',
@@ -1928,10 +1999,11 @@ function loadAllBookings() {
                     `
                 );
             }
+            setTotalBookings();
+            setTodayBookings();
         }
     });
 }
-
 loadAllBookings();
 
 //booking table on click
